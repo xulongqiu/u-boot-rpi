@@ -131,8 +131,5 @@ config TARGET_AXS101
 
 endchoice
 
-source "board/abilis/tb100/Kconfig"
-source "board/synopsys/Kconfig"
-source "board/synopsys/axs101/Kconfig"
 
 endmenu

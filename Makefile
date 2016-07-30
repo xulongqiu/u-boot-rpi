@@ -245,6 +245,7 @@ export	HOSTARCH HOSTOS
 ifeq ($(HOSTARCH),$(ARCH))
 CROSS_COMPILE ?=
 endif
+export CROSS_COMPILE=/opt/crosstools/gcc-arm-none-eabi/bin/arm-none-eabi-
 
 KCONFIG_CONFIG	?= .config
 export KCONFIG_CONFIG
