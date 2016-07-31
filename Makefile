@@ -245,7 +245,10 @@ export	HOSTARCH HOSTOS
 ifeq ($(HOSTARCH),$(ARCH))
 CROSS_COMPILE ?=
 endif
+ifeq ($(CROSS_COMPILE),)
 export CROSS_COMPILE=/opt/crosstools/gcc-arm-none-eabi/bin/arm-none-eabi-
+export BUILD_DIR=`pwd`/../build
+endif
 
 KCONFIG_CONFIG	?= .config
 export KCONFIG_CONFIG
@@ -803,7 +806,7 @@ append = cat $(filter-out $< $(PHONY), $^) >> $@
 quiet_cmd_pad_cat = CAT     $@
 cmd_pad_cat = $(cmd_objcopy) && $(append) || rm -f $@
 
-all:		$(ALL-y)
+all: disp_option		$(ALL-y)
 ifeq ($(CONFIG_DM_I2C_COMPAT)$(CONFIG_SANDBOX),y)
 	@echo "===================== WARNING ======================"
 	@echo "This board uses CONFIG_DM_I2C_COMPAT. Please remove"
@@ -1625,3 +1628,8 @@ FORCE:
 # Declare the contents of the .PHONY variable as phony.  We keep that
 # information in a variable so we can use it in if_changed and friends.
 .PHONY: $(PHONY)
+
+disp_option:	
+	@echo "CROSS_COMPILE="$(CROSS_COMPILE)
+	@echo "BUILD_DIR="$(BUILD_DIR)
+#@mkdir $(BUILD_DIR)
